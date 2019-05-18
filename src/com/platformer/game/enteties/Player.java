@@ -58,7 +58,7 @@ public class Player{
 		for(int i = 0; i < b.length; i++) {
 		
 			// Collision Ground
-			if(Collision.playerBlock(new Point(x + width, y + height), b[i])) {
+			if(Collision.playerBlock(new Point(x + width / 2, y + height), b[i])) {
 				y = b[i].y - 50;//GamePanel.h - Block.blockSize - 50;
 				
 				ySpeed = 0;
@@ -66,46 +66,33 @@ public class Player{
 				grounded = true;
 				
 			}
-			
-			if(Collision.playerBlock(new Point(x, y), b[i])) {
-				y = b[i].y - 50;//GamePanel.h - Block.blockSize - 50;
+			// Collision Left
+			if(Collision.playerBlock(new Point(x, y + height / 2), b[i])) {
+				x = b[i].x + 50;//GamePanel.h - Block.blockSize - 50;
 				
-				ySpeed = 0;
-				
-				grounded = true;
-				
-			}
-			if(Collision.playerBlock(new Point(x, y + height), b[i])) {
-				y = b[i].y - 50;//GamePanel.h - Block.blockSize - 50;
-				
-				ySpeed = 0;
-				
-				grounded = true;
-				
-			}
-			if(Collision.playerBlock(new Point(x + width, y), b[i])) {
-				y = b[i].y - 50;//GamePanel.h - Block.blockSize - 50;
-				
-				ySpeed = 0;
-				
-				grounded = true;
-				
-			}
-			
-			/*if(Collision.playerBlock(new Point(x + width, y + height), Level1State.b[18])) {
-				y = Level1State.b[18].y - 50;
-				
-				ySpeed = 0;
-				
-				grounded = true;
-				
-			}*/
-
-			
-			
-			/*if(Collision.playerBlock(new Point(x + width, y), b[i])) {
 				xSpeed = 0;
-			}*/
+				
+				grounded = true;
+				
+			}
+			// Collision Right
+			if(Collision.playerBlock(new Point(x + width, y + height /  2), b[i])) {
+				x = b[i].x - 50;//GamePanel.h - Block.blockSize - 50;
+				
+				xSpeed = 0;
+				
+				grounded = true;
+				
+			}
+			// Collision Top
+			if(Collision.playerBlock(new Point(x + width / 2, y), b[i])) {
+				y = b[i].y + 50;//GamePanel.h - Block.blockSize - 50;
+				
+				xSpeed = 0;
+				
+				grounded = true;
+				
+			}
 
 		}
 		
