@@ -25,12 +25,14 @@ public class Player{
 	public static int width;
 	public static int height;
 	
+	public static int movx;
+	public static int movy;
 	public static float xSpeed = 0;
 	public static float ySpeed = 0;
 	
-	
-	
-	
+
+    public static boolean pressedA = false;
+    public static boolean pressedD = false;	
 	public static final float METER_TO_PIXELS = 32f;
 	public static final float SECONDS_TO_FRAMES = 1f / 60f;
 	
@@ -47,16 +49,16 @@ public class Player{
 	
 
 	public void tick(Block[] b) {
-		System.out.println(grounded);
-
+		System.out.println(movx);
 		
-		x += xSpeed;
+		
+		x += movx*4;
 		y += ySpeed;
 		
 		ySpeed += gravity;
-
-		for(int i = 0; i < b.length; i++) {
 		
+		for(int i = 0; i < b.length; i++) {
+			
 			// Collision Ground
 			if(Collision.playerBlock(new Point(x + width / 2, y + height), b[i])) {
 				y = b[i].y - 50;//GamePanel.h - Block.blockSize - 50;
@@ -70,7 +72,7 @@ public class Player{
 			if(Collision.playerBlock(new Point(x, y + height / 2), b[i])) {
 				x = b[i].x + 50;//GamePanel.h - Block.blockSize - 50;
 				
-				xSpeed = 0;
+				//movx = 0;
 				
 				grounded = true;
 				
@@ -79,7 +81,7 @@ public class Player{
 			if(Collision.playerBlock(new Point(x + width, y + height /  2), b[i])) {
 				x = b[i].x - 50;//GamePanel.h - Block.blockSize - 50;
 				
-				xSpeed = 0;
+				//movx = 0;
 				
 				grounded = true;
 				
@@ -88,7 +90,7 @@ public class Player{
 			if(Collision.playerBlock(new Point(x + width / 2, y), b[i])) {
 				y = b[i].y + 50;//GamePanel.h - Block.blockSize - 50;
 				
-				xSpeed = 0;
+				//movx = 0;
 				
 				grounded = true;
 				
@@ -120,11 +122,13 @@ public class Player{
 			if(k == KeyEvent.VK_S) {
 			
 			}
-			if(k == KeyEvent.VK_A) {
-				xSpeed = -4;
+			if(k == KeyEvent.VK_A && !pressedA) {
+				movx-=1;
+				pressedA = true;
 			}
-			if(k == KeyEvent.VK_D) {
-				xSpeed = 4;
+			if(k == KeyEvent.VK_D && !pressedD) {
+				movx+=1;
+				pressedD = true;
 			}
 		}
 	}
@@ -138,12 +142,14 @@ public class Player{
 		} else {
 			ySpeed = 0;
 		}
-		if(k == KeyEvent.VK_A) {
-			xSpeed = 0;
+		if(k == KeyEvent.VK_A && pressedA) {
+			movx +=1;
+			pressedA = false;
 		}
 			
-		if(k == KeyEvent.VK_D) {
-			xSpeed = 0;
+		if(k == KeyEvent.VK_D && pressedD) {
+			movx -=1;
+			pressedD = false;
 		}
 	}
 }
